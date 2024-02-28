@@ -128,56 +128,26 @@ import {useState} from "react"
 //     )
 // }
 /* 부모 컴포넌트가 자식에게 State를 Props로 전달하지 않음 */
-// function Viewer(){ //자식 컴포넌트가 Props를 받지 않음
-//     console.log("viewer component update!")//리렌더 된다면 콘솔 로그 뜸
-//     return <div>Viewer</div>;
-// }
-// function Body(){
-//     const [number, setNumber] = useState(0);
-//     const onIncrease = ()=>{
-//         setNumber(number+1);
-//     }
-//     const onDecrease = ()=>{
-//         setNumber(number-1);
-//     }
-//     return (
-//         <div>
-//             <h2>{number}</h2>
-//             <Viewer  /> 
-//             <div><button onClick={onIncrease}>+</button></div>
-//             <div><button onClick={onDecrease}>-</button></div>
-//         </div>
-//     )
-// }
-
-import './body.css'
-/* 글씨 확대 만들기 */
- 
- 
+function Viewer(){ //자식 컴포넌트가 Props를 받지 않음
+    console.log("viewer component update!")//리렌더 된다면 콘솔 로그 뜸
+    return <div>Viewer</div>;
+}
 function Body(){
-    const [text, setText] = useState("") //텍스트 상태 변경
-    const [font, setFont] = useState(20) //폰트크기 상태 변경
-    const handleOnChange = (e)=>{ //텍스트 입력 이벤트
-        setText(e.target.value) 
-    } 
-    const onIncrease = ()=>{ //폰트크기 클릭 이벤트
-        setFont(font+3);
+    const [number, setNumber] = useState(0);
+    const onIncrease = ()=>{
+        setNumber(number+1);
     }
     const onDecrease = ()=>{
-        setFont(font-3);
+        setNumber(number-1);
     }
-    const StyleDiv = { //인라인 스타일 프로퍼티 추가
-        fontSize : font + 'px',
-        
-    }
-    console.log(font + "%" )
     return (
         <div>
-            <div id="tt"  style={StyleDiv}>{text}</div>
-            <textarea name="text" rows="5" cols="50"   value={text} onChange={handleOnChange} onKeyDown={handleOnChange}></textarea>
-            <div><button onClick={onIncrease}>글씨 키우기</button></div>
-            <div><button  onClick={onDecrease}>글씨 줄이기</button></div>
+            <h2>{number}</h2>
+            <Viewer  /> 
+            <div><button onClick={onIncrease}>+</button></div>
+            <div><button onClick={onDecrease}>-</button></div>
         </div>
     )
 }
+
 export default Body
