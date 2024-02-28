@@ -1,0 +1,8 @@
+.App {margin : 0 auto; width:1200px; text-align: left}
+.App>h1{padding:30px 0;}
+
+.App>section {padding:30px; background:#efefef; border-radius: 15px; margin-bottom:30px;}
+.App>section div div{font-size: 24px;}
+.App>section h1 {padding:10px 0; font-size: 36px;}
+
+.App>section button{margin-right:5px; padding:5px 10px; cursor: pointer;}
