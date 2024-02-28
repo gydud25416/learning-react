@@ -155,23 +155,22 @@ import './body.css'
  
  
 function Body(){
-    const [text, setText] = useState("")
-    const handleOnChange = (e)=>{
-        setText(e.target.value)
-         
+    const [text, setText] = useState("") //텍스트 상태 변경
+    const [font, setFont] = useState(20) //폰트크기 상태 변경
+    const handleOnChange = (e)=>{ //텍스트 입력 이벤트
+        setText(e.target.value) 
+    } 
+    const onIncrease = ()=>{ //폰트크기 클릭 이벤트
+        setFont(font+3);
     }
-   const [font, setFont] = useState(20)
-   const onIncrease = ()=>{
-            setFont(font+3);
-        }
-        const onDecrease = ()=>{
-            setFont(font-3);
-        }
-        const StyleDiv = {
-            fontSize : font + 'px',
-            
-        }
-        console.log(font + "%" )
+    const onDecrease = ()=>{
+        setFont(font-3);
+    }
+    const StyleDiv = { //인라인 스타일 프로퍼티 추가
+        fontSize : font + 'px',
+        
+    }
+    console.log(font + "%" )
     return (
         <div>
             <div id="tt"  style={StyleDiv}>{text}</div>

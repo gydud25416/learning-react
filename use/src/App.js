@@ -1,4 +1,4 @@
-import Body from './conponent/body'
+import Body from './conponent/state/body'
 import './App.css';
 
 function App() {
