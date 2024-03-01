@@ -1,70 +1,191 @@
-# Getting Started with Create React App
+## 프로젝트 준비하기
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+- [ ]  요구사항 분석하기
+- [ ]  리액트 앱 만들기
+- [ ]  UI 구현하기
 
-## Available Scripts
+---
 
-In the project directory, you can run:
+## 🖥️ UI 구현하기
 
-### `npm start`
+### 1. Viewer 컴포넌트 만들기
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+```jsx
+function Viewer(){ 
+    return(
+        <div>
+            <div>현재 카운트: </div>
+            <h1>0</h1>
+        </div> 
+    )
+} 
+export default Viewer;
+```
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+```jsx
+import Viewer from './Viewer'
+import './App.css';
 
-### `npm test`
+function App() {
+  return (
+    <div className="App">
+      <h1>Simple Counter</h1>
+      <section>
+        <Viewer />  //Viewer 컴포넌트를 App 자식 컴포넌트로 배치
+      </section>
+    </div>
+  );
+}
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+export default App;
 
-### `npm run build`
+```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### 2. Controller 컴포넌트 만들기
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- 카운트를 늘리거나 줄이는 리모컨 컴포넌트 만들기
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+```jsx
+const Controller = ()=>{
 
-### `npm run eject`
+    return(
+        <div>
+            <button>1</button>
+            <button>10</button>
+            <button>100</button>
+            <button>+100</button>
+            <button>+10</button>
+            <button>+1</button>
+        </div>
+    )
+}
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+export default Controller
+```
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+```jsx
+import './App.css';
+import Viewer from './component/Viewer'
+import Controller from './component/Controller'
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+function App() {
+  return (
+    <div className="App">
+      <h1>Simple Counter</h1>
+      <section>
+        <Viewer />
+      </section>
+      <section>
+        <Controller /> //Controoler 컴포넌트를 App 자식 컴포넌트로 배치
+      </section>
+    </div>
+  );
+}
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+export default App;
+```
 
-## Learn More
+## 💄 컴포넌트 스타일링 하기
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+```jsx
+.App {margin : 0 auto; width:1200px; text-align: left}
+.App>h1{padding:30px 0;}
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+.App>section {padding:30px; background:#efefef; border-radius: 15px; margin-bottom:30px;}
+.App>section div div{font-size: 24px;}
+.App>section h1 {padding:10px 0; font-size: 36px;}
 
-### Code Splitting
+.App>section button{margin-right:5px; padding:5px 10px; cursor: pointer;}
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+## ✈️ 기능 구현하기
 
-### Analyzing the Bundle Size
+### 1. State를 이용해 카운터 기능 구현하기
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+> 목적은 Controller 컴포넌트에 있는 버튼을 클릭하면, Viewer 컴포넌트에 있는 카운트가 증가하거나 감소해야 한다.
+> 
 
-### Making a Progressive Web App
+※ Props는 부모 자식 관계에서만 전달이 가능하다. 
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+Controller와 Viewer 의 부모인 App에서 state 변수, set 함수 모두를 만들고  자식 컴포넌트로 인수를 전달한다.
 
-### Advanced Configuration
+- App.js
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+```jsx
+import './App.css';
+import Viewer from './component/Viewer'
+import Controller from './component/Controller'
+import { useState } from 'react';
 
-### Deployment
+function App() {
+  const [count, setCount] = useState(0);
+  const handleOnClick = (value)=>{
+    setCount(count + value)
+}
+  return (
+    <div className="App">
+      <h1>Simple Counter</h1>
+      <section>
+        <Viewer count={count} />
+      </section>
+      <section>
+        <Controller handleOnClick={handleOnClick} />
+      </section>
+    </div>
+  );
+}
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+export default App;
 
-### `npm run build` fails to minify
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- Viewer.js
+
+```jsx
+
+function Viewer({count}){ 
+    
+    return(
+        <div>
+            <div>현재 카운트: </div>
+            <h1>{count}</h1>
+        </div> 
+    )
+} 
+export default Viewer;
+```
+
+- Controller.js
+
+```jsx
+const Controller = ({handleOnClick})=>{
+    
+    return(
+        <div>
+            <button onClick={()=>{handleOnClick(-1)}}>-1</button>
+            <button onClick={()=>{handleOnClick(-10)}}>-10</button>
+            <button onClick={()=>{handleOnClick(-100)}}>-100</button>
+            <button onClick={()=>{handleOnClick(+100)}}>+100</button>
+            <button onClick={()=>{handleOnClick(+10)}}>+10</button>
+            <button onClick={()=>{handleOnClick(+1)}}>+1</button>
+        </div>
+    )
+}
+
+export default Controller
+```
+
+### State를 App 컴포넌트에서 만들어야 하는 이유는?
+
+- state 값이나 set 함수는 각각 Viewer, Controller에 전달해야 한다.
+만약 Viewer나 Controller 컴포넌트에 State값이나 set 함수를 넣었다면 서로 부모 자식 관계가 아니기 때문에
+값과 함수를 전달할 방법이 없다.
+따라서 State 값이나 set함수를 여러 컴포넌트에서 사용하는 경우, 이들을 상위 컴포넌트에서 관리한다.
+리액트에서 이 기능을 다른 말로 ‘State 끌어올리기(State Lifting)’라고 한다.
+
+### 리액트답게 설계하기
+
+- 리액트에서 컴포넌트 간에 데이터를 전달할 때는 Props를 사용하는데, 전달 방향은 언제나 부모에서 자식으로 전달하는 방식이다.
+이러한 데이터 전달 특징을 ‘단방향 데이터 흐름’이라고한다.
+- 반대로 State를 변경하는 이벤트는 자식에서 부모를 향해 역방향으로 전달되어야 한다.
+Controller 컴포넌트에 있는 버튼 요소를 클릭하면 App 컴포넌트의 State를 업데이트하는 이벤트가 발생한다.
