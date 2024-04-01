@@ -1,7 +1,7 @@
  import Header from './component/Header'
  import TodoEditor from './component/TodoEditor';
  import TodoList from './component/TodoList';
- import { useRef, useReducer } from 'react';
+ import { useRef, useReducer, useCallback } from 'react';
 import './App.css';
 
 function reducer(state, action){
@@ -63,19 +63,19 @@ function App() {
      
   }
 
-  const onUpdate = (targetId) =>{ //아이템 수정
+  const onUpdate = useCallback((targetId) =>{ //아이템 수정
      dispatch({
       type:"UPDATE",
       targetId, //key={it.id}
-     })
-  }
+     });
+  },[]);
 
-  const onDelete = (targetId) =>{
+  const onDelete = useCallback((targetId) =>{
      dispatch({
       type: "DELETE",
       targetId,
      })
-  }
+  }, []);
   return (
     <div className="App">
  
