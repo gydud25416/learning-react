@@ -8,7 +8,7 @@ import Diary from './pages/Diary';
 import React, { useReducer, useRef, useEffect, useState, createContext } from 'react';
 
 export const DiaryStateContext = React.createContext();
-const DiaryDispatchContext = React.createContext();
+export const DiaryDispatchContext = React.createContext();
 
 function reducer(state, action){
   switch (action.type){
