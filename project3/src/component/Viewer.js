@@ -13,8 +13,15 @@ const Viewer = ({ content, emotionId })=>{
                 <img src={emotionItem.img} alt={emotionItem.name}/>
                 <div className="emotion_descript">{emotionItem.name}</div>
             </div>
+            
          </section>
-    </div>;
+         <section>
+            <h4>오늘의 일기</h4>
+            <div className="content_wrapper">
+                <p>{content}</p>
+            </div>
+            </section>
+    </div>
 }
 
 export default Viewer;

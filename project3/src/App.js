@@ -93,8 +93,8 @@ function App() {
 
   const onDelete = (targetId )=>{
     dispatch({
-      type:"Delete",
-      targetId,
+      type:"DELETE",
+      data:{id:targetId},
     })
   }
 

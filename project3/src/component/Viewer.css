@@ -14,3 +14,7 @@
 .Viewer .emotion_img_wrapper_5{background:#fd545f;}
 
 .Viewer .emotion_descript{font-size: 25px; color:#fff;}
+
+.Viewer .content_wrapper{width:100%; background:#ececec; border-radius: 5px; word-break:keep-all; overflow-wrap:break-word;}
+
+.Viewer .content_wrapper p{padding:20px; text-align: left; font-size: 20px; font-family: "Yeon Sung"; font-weight: 400; line-height: 2.5;}
