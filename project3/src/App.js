@@ -6,6 +6,7 @@ import Edit from './pages/Edit';
 import New from './pages/New';
 import Diary from './pages/Diary';
 import React, { useReducer, useRef, useEffect, useState, createContext } from 'react';
+import { log } from 'async';
 
 export const DiaryStateContext = React.createContext();
 export const DiaryDispatchContext = React.createContext();
@@ -13,15 +14,21 @@ export const DiaryDispatchContext = React.createContext();
 function reducer(state, action){
   switch (action.type){
     case "CREATE" :{
-      return [action.data, ...state];
+      const newState = [action.data, ...state];
+      localStorage.setItem("diary", JSON.stringify(newState));
+      return newState;
     }
     case "UPDATE" :{
-      return state.map((it)=> 
-        String(it.id) === String(action.data.id) ? {...action.data} : it
-       )
+      const newState = state.map((it)=> 
+      String(it.id) === String(action.data.id) ? {...action.data} : it
+     )
+     localStorage.setItem("diary", JSON.stringify(newState));
+      return newState
     }
     case "DELETE":{
-      return state.filter((it)=> String(it.id) !== String(action.data.id));
+      const newState = state.filter((it)=> String(it.id) !== String(action.data.id));
+      localStorage.setItem("diary", JSON.stringify(newState));
+      return newState 
     }
     case "INIT":{
       return action.data;
@@ -59,11 +66,16 @@ function App() {
   const idRef = useRef(0); 
 
   useEffect(()=>{
-    dispatch({
-      type: "INIT",
-      data: mockData,
-    });
-    setIsDataLoaded(true);
+    const rawData = localStorage.getItem("diary");
+    if(!rawData){
+      setIsDataLoaded(true);
+      return;
+    }
+    const localData = JSON.parse(rawData);
+    if(localData.length === 0 ){
+      setIsDataLoaded(true);
+      return;
+    }
   }, []);
 
   const onCreate = (date, content, emotionId)=>{
