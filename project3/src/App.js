@@ -1,12 +1,12 @@
  
 import './App.css';
-import { Route, Routes, Link } from 'react-router-dom'
+import { Route, Routes  } from 'react-router-dom'
 import Home from './pages/Home';
 import Edit from './pages/Edit';
 import New from './pages/New';
 import Diary from './pages/Diary';
-import React, { useReducer, useRef, useEffect, useState, createContext } from 'react';
-import { log } from 'async';
+import React, { useReducer, useRef, useEffect, useState } from 'react';
+ 
 
 export const DiaryStateContext = React.createContext();
 export const DiaryDispatchContext = React.createContext();
@@ -39,27 +39,6 @@ function reducer(state, action){
   } 
 }
  
-const mockData = [
-  {
-    id:"mock1",
-    date:new Date().getTime() - 1,
-    content:"mock1",
-    emotionId:1,
-  },
-  {
-    id:"mock2",
-    date:new Date().getTime() - 2,
-    content:"mock2",
-    emotionId:2,
-  },
-  {
-    id:"mock3",
-    date:new Date().getTime() - 3,
-    content:"mock3",
-    emotionId:3,
-  },
-]
-
 function App() {
   const [isDataLoaded, setIsDataLoaded] = useState(false);
   const [data, dispatch] = useReducer(reducer,[]);
@@ -76,6 +55,10 @@ function App() {
       setIsDataLoaded(true);
       return;
     }
+    localData.sort((a, b) => Number(b.id)- Number(a.id));
+    idRef.current = localData[0].id + 1;
+    dispatch({type:"INIT", data:localData});
+    setIsDataLoaded(true);
   }, []);
 
   const onCreate = (date, content, emotionId)=>{
